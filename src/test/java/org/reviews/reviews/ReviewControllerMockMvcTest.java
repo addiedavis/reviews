@@ -1,27 +1,33 @@
 package org.reviews.reviews;
 
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.CoreMatchers.is;
-import static java.until.Arrays.asList;
+import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.Mockito.when;
 
-import java.util.Collection;
+
+import java.util.Arrays;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+//import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+//import java.util.Collection;
 
 import javax.annotation.Resource;
 
 import org.reviews.reviews.Review;
 import org.reviews.reviews.ReviewController;
 import org.reviews.reviews.ReviewRepository;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(ReviewController.class)
@@ -41,7 +47,7 @@ public class ReviewControllerMockMvcTest {
 
 	@Test
 	public void shouldBeOkForAllCourses() throws Exception {
-		mvc.perform(get("/show-reviews")).andExpect(status().isOk);
+		mvc.perform(get("/show-reviews")).andExpect(status().isOk());
 	}
 
 	@Test
@@ -51,9 +57,9 @@ public class ReviewControllerMockMvcTest {
 
 	@Test
 	public void shouldPutAllCoursesIntoModel() throws Exception {
-		Collection<Review> allReviews = asList(firstReview, secondReview);
-		when(repository.findAll()).thenReturn(allReviews);
-		mvc.perform(get("/show-reviews")).andExpect(model().attribute("reviews", is(allReviews)));
+		
+		when(repository.findAll()).thenReturn(Arrays.asList(firstReview, secondReview));
+		mvc.perform(get("/show-reviews")).andExpect(model().attribute("reviews", hasSize(2)));
 	}
 
 	@Test

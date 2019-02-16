@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>A Review</title>
+	<title th:text = "${review.name}"></title>
 </head>
 <body>
-	<h1>A Single Review</h1>
+	<h1 th:text = "${review.name}"></h1>
 
-	<div th:each = "review: ${reviews}"> 
+	<div th:each = "reviews: ${review}"> 
 		<p th:text = "${review.name}"></p>
 		<p th:text = "${review.description}"></p>
+		<p th:text = "${review.category}"></p>
+		<a th:href = "${review.url}">Image URL Link</a>
+		<p></p>
 		<a href="http://localhost:8080/show-reviews">Home</a>
 	</div>
 </body>
