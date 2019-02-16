@@ -8,9 +8,9 @@
 
 	<div th:each = "reviews: ${review}"> 
 		<p th:text = "${review.name}"></p>
-		<p th:text = "${review.description}"></p>
 		<p th:text = "${review.category}"></p>
-		<a th:href = "${review.url}">Image URL Link</a>
+		<p th:text = "${review.description}"></p>
+		<a th:href = "${review.url}">Image</a>
 		<p></p>
 		<a href="http://localhost:8080/show-reviews">Home</a>
 	</div>
